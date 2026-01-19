@@ -1,133 +1,178 @@
 import { getMenuData } from "./menu.mjs";
 
-async function populateBreakFast(){
+// Helper function to create a clean menu row
+function createMenuRow(name, price, description = null) {
+    const row = document.createElement("div");
+    row.classList.add("menu-row");
+
+    const nameSpan = document.createElement("span");
+    nameSpan.classList.add("item-name");
+    nameSpan.textContent = name;
+
+    const priceSpan = document.createElement("span");
+    priceSpan.classList.add("item-price");
+    // Check if price is a number before fixing decimal, otherwise print as is
+    priceSpan.textContent = typeof price === 'number' ? `$${price.toFixed(2)}` : price;
+
+    row.appendChild(nameSpan);
+    row.appendChild(priceSpan);
+
+    // Return an array or a wrapper if description exists, but for simplicity
+    // we append the row, and if description exists, we append a separate desc div.
+    return row;
+}
+
+// Helper for descriptions
+function createDescription(text) {
+    const desc = document.createElement("div");
+    desc.classList.add("item-desc");
+    desc.textContent = text;
+    return desc;
+}
+
+// Helper for section headers
+function createSubHeader(text) {
+    const header = document.createElement("h3");
+    header.classList.add("menu-sub-header");
+    header.textContent = text;
+    return header;
+}
+
+async function populateBreakFast() {
     const menuData = await getMenuData();
-    const breakfastItems = document.getElementById("breakfastItems");
-    
+    const container = document.getElementById("breakfastItems");
 
     menuData.breakfast.meal.forEach(meal => {
-        const line = document.createElement("p");
-        line.textContent = `${meal.name} - $${meal.price}`;
-        breakfastItems.appendChild(line);
+        container.appendChild(createMenuRow(meal.name, meal.price));
     });
+
+    // Divider for Eggs
+    container.appendChild(createSubHeader("Eggs & Omelettes"));
+
     menuData.breakfast.eggs.forEach(meal => {
-        const line = document.createElement("p");
-        if (meal.name == "Omelette"){
-            line.textContent = `${meal.name} - $${meal.price}`;
-        }else{
-            line.textContent = `Eggs (3) : ${meal.name} - $${meal.price}`;
+        let displayName = meal.name;
+        // Handle the array of egg types
+        if (Array.isArray(meal.name)) {
+             displayName = `Eggs (3): ${meal.name.join(", ")}`;
         }
-        breakfastItems.appendChild(line);
+        container.appendChild(createMenuRow(displayName, meal.price));
     });
 }
 
-async function populateSandWiches(){
+async function populateSandWiches() {
     const menuData = await getMenuData();
-    const sandwichItems = document.getElementById("sandwichItems");
+    const container = document.getElementById("sandwichItems");
 
-    const studentMeal = document.createElement("h4");
-    studentMeal.textContent = `StudentMeal - ${menuData.studentMeal.description} - $${menuData.studentMeal.price.toFixed(2)}`;
-    sandwichItems.appendChild(studentMeal);
+    // Student Meal Special
+    container.appendChild(createSubHeader("Student Deal"));
+    container.appendChild(createMenuRow("Student Meal", menuData.studentMeal.price));
+    container.appendChild(createDescription(menuData.studentMeal.description));
 
-
+    // Regular Sandwiches
+    container.appendChild(createSubHeader("Cold Sandwiches"));
     menuData.sandWiches.nonGrilled.sandwiches.forEach(meal => {
-        const line = document.createElement("p");
-        line.textContent = `${meal.name} - Half: $${meal.halfPrice} Full: $${meal.fullPrice}`;
-        sandwichItems.appendChild(line);
+        // Create a custom row for half/full pricing
+        const row = document.createElement("div");
+        row.classList.add("menu-row");
+        
+        const nameSpan = document.createElement("span");
+        nameSpan.classList.add("item-name");
+        nameSpan.textContent = meal.name;
+
+        const priceSpan = document.createElement("span");
+        priceSpan.classList.add("item-price");
+        priceSpan.textContent = `Half: $${meal.halfPrice} / Full: $${meal.fullPrice}`;
+
+        row.appendChild(nameSpan);
+        row.appendChild(priceSpan);
+        container.appendChild(row);
     });
 
-    sandwichItems.appendChild(document.createElement("br"));
-    let addons = document.createElement("h3");
-    addons.textContent = "With request Sandwich can come with: ";
-
-    sandwichItems.appendChild(addons);
-    let line = document.createElement("p");
-    line.textContent = menuData.sandWiches.nonGrilled.addOns;
-    sandwichItems.appendChild(line);
-
+    // Addons
+    const addonTitle = createSubHeader("Customize Your Sandwich");
+    container.appendChild(addonTitle);
+    
+    const addonList = document.createElement("p");
+    addonList.classList.add("addon-list");
+    addonList.textContent = menuData.sandWiches.nonGrilled.addOns.join(", ");
+    container.appendChild(addonList);
 }
 
-async function populateGrilledSandWiches(){
+async function populateGrilledSandWiches() {
     const menuData = await getMenuData();
-    const grilledSandwichItems = document.getElementById("grilledSandwichItems");
+    const container = document.getElementById("grilledSandwichItems");
 
     menuData.sandWiches.GrilledSandwiches.sandwiches.forEach(meal => {
-        const line = document.createElement("p");
-        line.textContent = `${meal.name} - $${meal.price}`;
-        grilledSandwichItems.appendChild(line);
+        container.appendChild(createMenuRow(meal.name, meal.price));
     });
 
-    grilledSandwichItems.appendChild(document.createElement("br"));  
-    let addons = document.createElement("h3");
-    addons.textContent = "With request Sandwich can come with: ";
-
-    grilledSandwichItems.appendChild(addons);
-    let line = document.createElement("p");
-    line.textContent = menuData.sandWiches.GrilledSandwiches.addOns;
-    grilledSandwichItems.appendChild(line);
+    const addonTitle = createSubHeader("Customize");
+    container.appendChild(addonTitle);
+    
+    const addonList = document.createElement("p");
+    addonList.classList.add("addon-list");
+    addonList.textContent = menuData.sandWiches.GrilledSandwiches.addOns.join(", ");
+    container.appendChild(addonList);
 }
 
-async function populateKidsMenu(){
+async function populateKidsMenu() {
     const menuData = await getMenuData();
-    const kidsMenuItems = document.getElementById("kidsMenuItems");
+    const container = document.getElementById("kidsMenuItems");
 
     menuData.kidsMenu.meal.forEach(meal => {
-        let line = document.createElement("p");
-        line.textContent = `${meal.name} - $${meal.price}`;
-        kidsMenuItems.appendChild(line);
+        container.appendChild(createMenuRow(meal.name, meal.price));
     });
-
 }
 
 async function populateSoupSize() {
     const menuData = await getMenuData();
-    const soupItems = document.getElementById("soupMenuItems");
+    const container = document.getElementById("soupMenuItems");
 
-    const sizeHolder = document.createElement("div");
-    let size = document.createElement("h3");
-    size.textContent = "Sizes";
-    sizeHolder.appendChild(size);
-
-    menuData.soups.size.forEach(meal => {
-        let line = document.createElement("p");
-        line.textContent = `${meal.name} - $${meal.price}`;
-        sizeHolder.appendChild(line);
+    container.appendChild(createSubHeader("Sizes"));
+    menuData.soups.size.forEach(size => {
+        container.appendChild(createMenuRow(size.name, size.price));
     });
 
-    soupItems.appendChild(sizeHolder);
-
-    const br = document.createElement("br");
-    soupItems.appendChild(br);
-    const soupheader = document.createElement("h3");
-    soupheader.textContent = "Daily Soups";
-    soupItems.appendChild(soupheader);
-
+    container.appendChild(createSubHeader("Daily Schedule"));
     menuData.soups.dayOfWeek.forEach(soup => {
-        let line = document.createElement("p");
-        line.textContent = `${soup.day} - ${soup.name}`;
-        soupItems.appendChild(line);
-    });
+        // Reusing the menu row style, but passing day as name and soup as 'price' (conceptually)
+        const row = document.createElement("div");
+        row.classList.add("menu-row");
+        
+        const daySpan = document.createElement("span");
+        daySpan.classList.add("item-name");
+        daySpan.textContent = soup.day;
 
+        const soupSpan = document.createElement("span");
+        soupSpan.classList.add("item-price");
+        soupSpan.style.color = "#555"; // Make soup name distinct color
+        soupSpan.textContent = soup.name;
+
+        row.appendChild(daySpan);
+        row.appendChild(soupSpan);
+        container.appendChild(row);
+    });
 }
 
 async function populateDrinks() {
     const menuData = await getMenuData();
-    const drinkItems = document.getElementById("drinkMenuItems");
+    const container = document.getElementById("drinkMenuItems");
 
-    const lemonadeTitle = document.createElement("h3");
-    lemonadeTitle.textContent = "Lemonade";
-    drinkItems.appendChild(lemonadeTitle);
-
-
+    container.appendChild(createSubHeader("Lemonade"));
     menuData.drinks.lemonade.forEach(drink => {
-        let line = document.createElement("p");
-        line.textContent = `${drink.name} - ${drink.description} - $${drink.price}`;
-        drinkItems.appendChild(line);
-        console.log(drink);
+        container.appendChild(createMenuRow(drink.name, drink.price));
+        if(drink.description) {
+            container.appendChild(createDescription(drink.description));
+        }
+    });
+
+    container.appendChild(createSubHeader("Other Drinks"));
+    menuData.drinks.other.forEach(drink => {
+        container.appendChild(createMenuRow(drink.name, drink.price));
     });
 }
 
-function populateMenu(){
+function populateMenu() {
     populateBreakFast();
     populateSandWiches();
     populateGrilledSandWiches();
@@ -136,35 +181,36 @@ function populateMenu(){
     populateDrinks();
 }
 
-document.addEventListener("DOMContentLoaded", populateMenu);
+// Event Listeners for Accordions
+const idButtonList = ["breakfastButton", "sandwichButton", "grilledSandwichButton", "kidsButton", "soupButton", "drinkButton"];
 
-
-function changeHideClass(idElement){
-
-    let containerId ="";
-    if (idElement == "breakfastButton"){
-        containerId = "breakFastContainer";
-    } else if (idElement == "sandwichButton"){
-        containerId = "sandwichMenuContainer";
-    } else if (idElement == "grilledSandwichButton"){
-        containerId = "grilledSandwichContainer";
-    } else if (idElement == "kidsButton"){
-        containerId = "kidsMenuContainer";
-    } else if (idElement == "soupButton"){
-        containerId = "soupsContainer";
-    } else if (idElement == "drinkButton"){
-        containerId = "drinkContainer";
-    }
+function changeHideClass(idElement) {
+    let containerId = "";
+    // Mapping button ID to container ID
+    if (idElement == "breakfastButton") containerId = "breakFastContainer";
+    else if (idElement == "sandwichButton") containerId = "sandwichMenuContainer";
+    else if (idElement == "grilledSandwichButton") containerId = "grilledSandwichContainer";
+    else if (idElement == "kidsButton") containerId = "kidsMenuContainer";
+    else if (idElement == "soupButton") containerId = "soupsContainer";
+    else if (idElement == "drinkButton") containerId = "drinkContainer";
 
     const container = document.getElementById(containerId);
     container.classList.toggle("hide");
-
+    
+    // Optional: Rotate arrow
+    const btn = document.getElementById(idElement);
+    const arrow = btn.querySelector(".arrow");
+    if(container.classList.contains("hide")) {
+        arrow.style.transform = "rotate(0deg)";
+    } else {
+        arrow.style.transform = "rotate(180deg)";
+    }
 }
-
-const idButtonList = ["breakfastButton", "sandwichButton", "grilledSandwichButton", "kidsButton", "soupButton", "drinkButton"]
 
 idButtonList.forEach(id => {
     document.getElementById(id).addEventListener("click", () => {
         changeHideClass(id);
-    })
-})
+    });
+});
+
+document.addEventListener("DOMContentLoaded", populateMenu);
