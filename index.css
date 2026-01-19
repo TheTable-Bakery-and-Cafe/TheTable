@@ -1,313 +1,359 @@
-/* This was done By Julio cesar Tavarez */
-body{
-    padding:0;
-    margin:0;
-    background-color: #000000;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+/* CSS Variables for easy maintenance */
+:root {
+    --bg-color: #000000;
+    --header-bg: #333333; /* Dark Grey */
+    --header-bg-desktop: #484848; 
+    --text-main: #fcfcfc;
+    --text-dark: #333333;
+    --accent-blue: #96a2b5;
+    --accent-tan: #b5a696;
+    --card-bg: #ffffff;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+/* Reset & Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--bg-color);
+    font-family: var(--font-body);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s ease;
+}
+
+/* Header */
+header {
     width: 100%;
 }
-main{
-    padding:0;
-    margin:0;
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: var(--header-bg);
+    gap: 1rem;
+}
+
+.table-logo {
+    width: 60px;
+    height: auto;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.table-logo:hover {
+    transform: scale(1.1);
+}
+
+.page-title {
+    color: var(--text-main);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.7; /* Dim the image slightly so text pops */
+}
+
+.hero-overlay {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent box */
+    padding: 2rem;
+    max-width: 600px;
+    text-align: center;
+    border-left: 5px solid var(--accent-tan);
+    margin: 1rem;
+}
+
+.mission-statement {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.tagline {
+    color: var(--accent-tan);
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+/* Main Content */
+main {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 2rem;
 }
 
-html, body{
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-header{
-    width: 100%;
+/* Cards */
+.card {
+    background-color: var(--card-bg);
+    color: var(--text-dark);
+    padding: 2rem;
+    border-radius: 8px; /* Rounded corners look more modern */
+    border: none;
     text-align: center;
-
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle glow on dark bg */
 }
 
-.topHeader{
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    background-color: #333333;
-    margin-bottom: 20px;
-
-    height : auto;
-
+.time-card {
+    max-width: 500px;
+    margin: 0 auto;
+    border-top: 5px solid var(--accent-blue);
 }
 
-.namePage{
-    margin-left: 20%;
-    color : #fcfcfc;
-    margin-bottom: 5px;
-
+.time-card h2 {
+    color: var(--header-bg);
+    margin-bottom: 1rem;
 }
 
-.Tablelogo{
-    width:70px;
-    height: auto;
-    z-index: 0;
-
-    border-radius: 10%;
-}
-
-/* .navholder{
-    background-color: #b5a696;
-    width:30px;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-.menuIcon{
-    height: 50%;
-
-}
-
-.infoPage{
-    height: 40vh;
-    color: #fcfcfc;
+.hours-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-}
-.bannerImage{
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    z-index: 0;
-    grid-area: 1/1/5/2;
+    gap: 0.5rem;
+    font-size: 1.1rem;
 }
 
-.bannerWords{
-    z-index: 1;
-    grid-area: 4/1/5/2;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+/* Action Section (Grid) */
+.actions-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
 }
-.simpleDelicious{
-    color: #b5a696;
+
+.action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 5px solid var(--accent-blue);
+    transition: transform 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+}
+
+.card-image {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--accent-blue);
+    color: var(--text-main);
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--header-bg); /* Darker on hover */
+}
+
+/* Footer */
+footer {
+    background-color: var(--header-bg);
+    color: var(--text-main);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
-.card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border: 2px solid #96a2b5;
-    background-color: #ffffff;
-    width : 100%;
-}
-.timeCard{
-    width:90%;
-
-
+.footer-link {
+    color: var(--accent-blue);
+    margin: 0 0.5rem;
+    font-weight: 600;
 }
 
-.cardImage{
-    width: 80%;
-    max-width: 400px;
-    max-height: 400px;
-    height: auto;
+.footer-link:hover {
+    color: var(--text-main);
+    text-decoration: underline;
 }
 
-button{
-    border: none;
-    background-color: #96a2b5;
-    color: #ffffff;
-}
-
-.cardButton{
-    width: 90px;
-    height: 30px;
-}
-
-footer{
-    color: #fcfcfc;
-    text-decoration: none;
-    padding: 10px;
-    background-color: #333333;
-    color: #fcfcfc;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 10px;
-}
-
-footer div{
-    min-width: 20%;
-}
-
-
-
-.social{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.icon{
-    height: 60px;
-    width: 60px;
-
-    border-radius: 50px;
-}
-
-.footerLink{
-    text-decoration: none;
-    color: #fcfcfc;
-}
-
-
-
-
-/* This is for menu.html */
-.menuItems{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 5%;
-    padding-left: 5px;
-    margin-top:10px;
-    margin-bottom: 10px;
-    border: 2px solid #ffffff;
-    background-color: #96a2b5;
-    height:fit-content;
-    width: 100%;
-}
-
-.menuButton{
-    border: none;
-    width: 100%;
-    margin-bottom: 10px;
-    height: 30px;
-    align-items: center;
-}
-
-
-.breakfastContainer{
-    border: #d32929 solid 2px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    height:fit-content;
-    width: 90%;
-}
-
-.grilledSandwichContainer,.grilledSandwichMenu , .KidsContainer, .kidsMenu, .soups, .drinks{
-    width: 90%;
-}
-
-
-.sandwichMenuContainer{
-    padding-left: 15px;
-}
-.breakfastItems{
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    padding: 10px;
-    /* background-color: #b5a696; */
-    height:fit-content;
-    width: 80%;
-}
-
-.breakfastTitle{
-    margin-left: 20px;
-}
-.hide{
-    display : none;
-}
-
-footer p{
-    color: #fcfcfc;
-    text-decoration: none;
-}
-
-.phone-number{
-    color: #fcfcfc;
-    text-decoration: none;
-}
-a{
-    text-decoration: none;
-    color:#fcfcfc;
-}
-
-@media screen and (min-width: 600px) {
-
-    header{
-        background-color: #484848;
+/* Desktop Styles */
+@media screen and (min-width: 768px) {
+    .header-container {
+        background-color: var(--header-bg-desktop);
+    }
+    
+    .actions-section {
+        grid-template-columns: 1fr 1fr; /* Side by side cards */
     }
 
-    .bannerImage{
-        justify-self: center;
-    }
-
-     .itemCard{
-        display: flex;
+    footer {
         flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
+        justify-content: space-around;
+        text-align: left;
     }
+}
 
-    .card{
-        min-width: 200px;
-        max-width: 400px;
-        width:380px;
-        height: 400px;
-    }
+/* --- MENU PAGE SPECIFIC STYLES --- */
 
+/* Container for the whole menu to keep it narrow and readable */
+.menu-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-    .namePage{
-        margin-left: 42%;
-    }
+/* The Button that opens the section */
+.accordion-trigger {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--accent-blue);
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
 
-    .bannerWords{
-        display: none;
-    }
+.accordion-trigger:hover {
+    background-color: #7a8699; /* Slightly darker blue */
+}
 
-    .navholder{
-        display: none;
-    }
-    .infoPage{
+/* The content box (hidden by default) */
+.accordion-content {
+    background-color: var(--card-bg);
+    color: var(--text-dark);
+    padding: 0;
+    margin-top: 5px;
+    border-radius: 8px;
+    overflow: hidden;
+    max-height: 2000px; /* Arbitrary large height for animation */
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+}
 
-        height: auto;
-        padding-top: 10px;
-        padding-bottom: 10px;
+/* The hide class collapses the height */
+.accordion-content.hide {
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+    margin: 0;
+}
 
+.item-list {
+    padding: 1.5rem;
+}
 
-    }
+/* Individual Menu Item Styling */
+.menu-row {
+    display: flex;
+    justify-content: space-between; /* Pushes name to left, price to right */
+    align-items: baseline;
+    border-bottom: 1px dotted #ccc; /* Dotted line between items */
+    padding: 0.8rem 0;
+}
 
-    .timeCard{
-        width:380px;
+.menu-row:last-child {
+    border-bottom: none;
+}
 
-    }
+.item-name {
+    font-weight: 600;
+    text-transform: capitalize;
+}
 
-    .menuItems{
-        display: flex;
-        flex-direction: column;
-        /* justify-content: center; */
-        align-items: center;
-        margin-top: 10px;
-        padding: 10%;
-        margin-top:10px;
-        border: 2px solid #ffffff;
-        background-color: #96a2b5;
-        height:fit-content;
-        width: 200px;
-    }
+.item-price {
+    font-weight: bold;
+    color: var(--header-bg);
+    white-space: nowrap; /* Keeps price on one line */
+    margin-left: 1rem;
+}
 
-    footer{
-        flex-direction: row;
-    }
+.item-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+/* Section Sub-headers (like "Add-ons") */
+.menu-sub-header {
+    margin-top: 1.5rem;
+    color: var(--accent-tan);
+    font-family: var(--font-heading);
+    border-bottom: 2px solid var(--accent-tan);
+    padding-bottom: 5px;
+}
+
+.menu-note {
+    background-color: #f8f8f8;
+    color: #555;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.addon-list {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0.5rem;
 }
