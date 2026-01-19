@@ -4,86 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <script type="module" src="index.js" defer></script>
 </head>
 <body>
     <header>
-        <section class="topHeader">
-            <a href="index.html">
-                <img id ="logoTable" class="Tablelogo" src="images/table_logo.png" alt="Logo">
+        <div class="header-container">
+            <a href="index.html" class="logo-link">
+                <img id="logoTable" class="table-logo" src="images/table_logo.png" alt="The Table Logo">
             </a>
-            <h1 class="namePage">The Table</h1>
-        </section>
+            <h1 class="page-title">The Table</h1>
+        </div>
 
-
-        <section id="infoPage" class="infoPage">
-            <img class="bannerImage" src="images/banner.jpg" alt="banner image">
-            <div class="bannerWords">
-                <p> As a family-owned bakery, we strive to produce small-batch baked goods using favorite family recipes
-                    with only the best ingredients to make real food.We don't cut corners.
-                </p>
-                <p class="simpleDelicious"><b>Simple and Delicious!</b></p>
+        <section id="infoPage" class="hero-section">
+            <img id="heroImage" class="hero-bg" src="images/banner.jpg" alt="Bakery Banner">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <p class="mission-statement">
+                        As a family-owned bakery, we strive to produce small-batch baked goods using favorite family recipes with only the best ingredients. Real food. No corners cut.
+                    </p>
+                    <p class="tagline">Simple and Delicious!</p>
+                </div>
             </div>
-
         </section>
-
-
-
     </header>
 
     <main>
+        <section class="hours-section">
+            <div class="card time-card">
+                <h2>We are open</h2>
+                <div class="hours-grid">
+                    <div class="day">Monday - Friday</div>
+                    <div class="time">8:00am - 6:00pm</div>
+                    <div class="day">Saturday</div>
+                    <div class="time">8:00am - 3:00pm</div>
+                </div>
+            </div>
+        </section>
 
-        <div class="card timeCard">
-            <h2>We are open: </h2>
-            <h3>Monday - Friday</h3>
-            <h3> 8:00am - 6:00pm</h3>
-            <h3>Saturday</h3>
-            <h3> 8:00am - 3:00pm</h3>
-        </div>
-
-        <div class="itemCard">
-            <div class="card">
-                <img class="cardImage" src="images/bannerImages/grilledCheesAndSoup.png" alt="grilledCheesAndSoup">
-                <br>
-                <a href="menu.html"><button class="cardButton">Menu</button></a>
+        <section class="actions-section">
+            <div class="card action-card">
+                <img class="card-image" src="images/bannerImages/grilledCheesAndSoup.png" alt="Grilled Cheese and Soup">
+                <div class="card-content">
+                    <h3>Hungry?</h3>
+                    <a href="menu.html"><button class="btn-primary">View Menu</button></a>
+                </div>
             </div>
     
-    
-    
-            <div class="card">
-                <img class="cardImage" src="images/gps_Location.png" alt="grilledCheesAndSoup">
-                <h3 class="sectionTitle">Come on in and eat!</h3>
-                <a href="https://www.google.com/maps/place/23+N+Bridge+St,+St+Anthony,+ID+83445/@43.9668543,-111.7013957,15z/data=!3m1!4b1!4m6!3m5!1s0x5353fa645a9cd243:0x7b41b7dcd114f275!8m2!3d43.9668558!4d-111.6829632!16s%2Fg%2F11b8ynx9nf?entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D"><button class="cardButton">Location</button></a>
+            <div class="card action-card">
+                <img class="card-image" src="images/gps_Location.png" alt="Map Location">
+                <div class="card-content">
+                    <h3>Come eat with us!</h3>
+                    <a href="https://www.google.com/maps/place/23+N+Bridge+St,+St+Anthony,+ID+83445/@43.9668543,-111.7013957,15z/data=!3m1!4b1!4m6!3m5!1s0x5353fa645a9cd243:0x7b41b7dcd114f275!8m2!3d43.9668558!4d-111.6829632!16s%2Fg%2F11b8ynx9nf?entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank"><button class="btn-primary">Get Directions</button></a>
+                </div>
             </div>
-        </div>
-
-
-
+        </section>
     </main>
 
-    <footer class="footInfo">
-        <p>© 2021 The Table</p> 
-        <div class="social">
-            <a href="https://www.instagram.com/thetable_bakery/" class="footerLink">
-                <p>Instagram</p>
-            </a>
-            <a href="https://www.facebook.com/profile.php/?id=61556805665335" class="footerLink">
-                <p>Facebook</p>
-            </a>
+    <footer>
+        <div class="footer-column">
+            <p class="copyright">© 2021 The Table</p> 
+        </div>
+        
+        <div class="footer-column social-links">
+            <a href="https://www.instagram.com/thetable_bakery/" class="footer-link">Instagram</a>
+            <a href="https://www.facebook.com/profile.php/?id=61556805665335" class="footer-link">Facebook</a>
         </div>
   
-
-        <div class="location">
-            <a class="footerLink" href="https://www.google.com/maps/place/23+N+Bridge+St,+St+Anthony,+ID+83445/@43.9668543,-111.7013957,15z/data=!3m1!4b1!4m6!3m5!1s0x5353fa645a9cd243:0x7b41b7dcd114f275!8m2!3d43.9668558!4d-111.6829632!16s%2Fg%2F11b8ynx9nf?entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D">
-                <p class="locationWord">Location: 23 N Bridge St, St Anthony, ID 83445</p>
+        <div class="footer-column contact-info">
+            <a class="footer-link" href="https://www.google.com/maps/place/23+N+Bridge+St,+St+Anthony,+ID+83445/@43.9668543,-111.7013957,15z/data=!3m1!4b1!4m6!3m5!1s0x5353fa645a9cd243:0x7b41b7dcd114f275!8m2!3d43.9668558!4d-111.6829632!16s%2Fg%2F11b8ynx9nf?entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D">
+                23 N Bridge St, St Anthony, ID 83445
             </a>
+            <p>208-624-0244</p>
         </div>
-        <div class="phone">
-            <p class="phoneWord">Call US: 208-624-0244</p>
-        </div>
-
     </footer>
-    
 </body>
 </html>
